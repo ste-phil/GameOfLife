@@ -28,11 +28,7 @@ namespace GameOfLife
             if (query.CalculateEntityCountWithoutFiltering() == 0)
                 return;
 
-            ref var config = ref query.GetSingletonRW<Config>().ValueRW;
-
-          
-
-
+            ref var config = ref SystemAPI.GetSingletonRW<Config>().ValueRW;
             var initialized = SystemAPI.QueryBuilder().WithAll<ActiveSimulation>().Build().CalculateEntityCount() > 0;
             if (!initialized)
             {
