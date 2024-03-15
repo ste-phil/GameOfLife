@@ -28,6 +28,7 @@ public unsafe struct ChunkSimulationGrid : IDisposable
     private const int GHOST_LAYER_OFFSET = 8;
 
     private int gridSize;
+    [NativeDisableParallelForRestriction]
     private NativeArray<int> cells;
 
     public readonly static int2 ChunkSize = new int2(8, 4);

@@ -25,6 +25,7 @@ namespace GameOfLife
 
         public RenderingMode RenderingMode;
         public bool UseRandomInitialization;
+        public float OrthographicSize;
     }
 
     public struct InitialAliveCells : IBufferElementData

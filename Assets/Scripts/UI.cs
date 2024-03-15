@@ -59,15 +59,16 @@ namespace GameOfLife
         void OnAxisSizeChanged(ChangeEvent<string> evt)
         {
             //Axis is required to be a multiple of 32 because of the BRGMultiCellGraph rendering mode 
-            if (int.TryParse(evt.newValue, out var newAxisSize) && newAxisSize % 32 == 0)
+            if (int.TryParse(evt.newValue, out var newAxisSize))
             {
+                //make newAxisSize a multiple of 32
+                newAxisSize = (newAxisSize / 32) * 32;
+
                 axisSize = newAxisSize;
                 ResetAndUpdateSimulation();
             }
-            else
-            {
-                UIDocument.rootVisualElement.Q<TextField>("axisSizeInput").value = axisSize.ToString();
-            }
+
+            UIDocument.rootVisualElement.Q<TextField>("axisSizeInput").SetValueWithoutNotify(axisSize.ToString());
         }
 
         private void OnSimulationUpdateRateChanged(ChangeEvent<string> evt)

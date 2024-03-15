@@ -12,17 +12,16 @@ using UnityEngine.Rendering.Universal;
 
 namespace GameOfLife
 {
-    public class BatchRenderingData
-    {
-        public MaterialPropertyBlock PropertyBlock;
-        public ComputeBuffer ComputeBuffer;
-        public Matrix4x4[] Matrices;
-    }
-
-
     [BurstCompile]
     public partial class MeshInstancedRenderingSystem : SystemBase
     {
+        public class BatchRenderingData
+        {
+            public MaterialPropertyBlock PropertyBlock;
+            public ComputeBuffer ComputeBuffer;
+            public Matrix4x4[] Matrices;
+        }
+
         private Mesh quadMesh;
         private Material material;
         //private ComputeBuffer cellStateBuffer;

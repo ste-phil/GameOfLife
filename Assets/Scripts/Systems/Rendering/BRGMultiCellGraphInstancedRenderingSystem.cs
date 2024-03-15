@@ -132,6 +132,24 @@ namespace GameOfLife
             UnsafeUtility.Free(renderingData, Allocator.Persistent);
         }
 
+        protected override void OnDestroy()
+        {
+            if (renderingData->Initialized)
+            {
+                m_BatchRendererGroup.RemoveBatch(renderingData->BatchId);
+
+                m_BatchRendererGroup.UnregisterMaterial(renderingData->MaterialId);
+                m_BatchRendererGroup.UnregisterMesh(renderingData->MeshId);
+                m_BatchRendererGroup.Dispose();
+                m_graphicsBuffer.Dispose();
+
+                renderingData->VisibleInstances.Dispose();
+            }
+
+            UnsafeUtility.Free(renderingData, Allocator.Persistent);
+        }
+
+
         private static JobHandle OnPerformCulling(BatchRendererGroup rendererGroup, BatchCullingContext cullingContext, BatchCullingOutput cullingOutput, IntPtr userContext)
         {
             var data = (RenderingData*)userContext.ToPointer();

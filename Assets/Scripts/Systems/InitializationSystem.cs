@@ -28,7 +28,7 @@ namespace GameOfLife
             if (query.CalculateEntityCountWithoutFiltering() == 0)
                 return;
 
-            var config = query.GetSingleton<Config>();
+            ref var config = ref query.GetSingletonRW<Config>().ValueRW;
 
           
 
@@ -49,6 +49,7 @@ namespace GameOfLife
                     case RenderingMode.BRGMultiCellGraphInstanced:
                         {
                             Camera.main.orthographicSize = config.GridSize / 16.0f;
+                            config.OrthographicSize = Camera.main.orthographicSize;
 
                             var newSimState = new ChunkSimulationState();
                             newSimState.Grid = new ChunkSimulationGrid(config.GridSize);
@@ -88,6 +89,7 @@ namespace GameOfLife
                     case RenderingMode.BRGInstanced:
                         {
                             Camera.main.orthographicSize = config.GridSize / 2.0f;
+                            config.OrthographicSize = Camera.main.orthographicSize;
 
                             var newSimState = new SimulationState();
                             newSimState.Grid = new SimulationGrid(config.GridSize, 8);
